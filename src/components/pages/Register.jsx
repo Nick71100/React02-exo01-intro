@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { saveUserToStorage } from "../../utils/storage";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const userExists = users.find((user) => user.userName === userName);
+  const newUser = { userName, password };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,15 +22,11 @@ function Register() {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const userExists = users.find((user) => user.userName === userName);
-
     if (userExists) {
       setError("Ce nom d'utilisateur est déjà pris.");
       return;
     }
 
-    const newUser = { userName, password };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
@@ -58,7 +57,7 @@ function Register() {
         {error && <p>{error}</p>}
       </form>
       <p>
-        Déjà enregistré? <NavLink to="/login">Log In</NavLink>
+        Déjà enregistré? <Link to="/login">Log In</Link>
       </p>
     </main>
   );

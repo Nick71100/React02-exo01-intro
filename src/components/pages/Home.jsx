@@ -22,7 +22,7 @@ function Home() {
 
   return (
     <main>
-      <h2>fetch-moi ça !</h2>
+      <h2>fetch method</h2>
 
       <div className="cards">
         {error && <p>{error}</p>}

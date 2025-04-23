@@ -1,0 +1,19 @@
+h2 {
+  text-align: center;
+  color: #aaa;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+
+  article {
+    padding: 0 10px;
+    width: 31%;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.4);
+  }
+}

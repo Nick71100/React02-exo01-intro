@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 
+import { valideUser } from "../utils/storage";
+
 function Login() {
   const userRef = useRef();
   const passwordRef = useRef();
@@ -19,12 +21,9 @@ function Login() {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const findUser = users.find(
-      (user) => user.userName === userName && user.password === password
-    );
+    const user = valideUser(userName, password);
 
-    if (!findUser) {
+    if (!user) {
       setError("Inavlide !");
       return;
     }

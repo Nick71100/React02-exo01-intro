@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { getUsers, saveUser, userExists } from "../utils/storage";
+
 function Register() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-  const userExists = users.find((user) => user.userName === userName);
-  const newUser = { userName, password };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,16 +20,15 @@ function Register() {
       return;
     }
 
-    if (userExists) {
+    if (userExists(userName)) {
       setError("Ce nom d'utilisateur est déjà pris.");
       return;
     }
 
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
+    saveUser({ userName, password });
 
     setError("");
-    alert("Enregistrement réussi !");
+    console.log("Enregistrement réussi !");
     setUserName("");
     setPassword("");
   }
